@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+
+<h3 class="text-center">Login</h3>
+<br class="mb-3">
+
+        <form method="POST" action="{% url 'login' %}" style="width: 500px; margin: auto;">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <!-- Add your login form fields here -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-warning">Login</button>
+            </div>
+            <br>
+        </form>
+
+{% endblock %}
