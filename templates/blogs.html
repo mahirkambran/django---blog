@@ -27,7 +27,46 @@
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{ single_blog.short_description }}</p>
                     <p class="fs-5 mb-4">{{ single_blog.blog_body }}</p>
-                    </section>
+
+
+                    <!-- Comments Section -->
+                    <h4>Comments ({{ comment_count }})</h4>
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <p class="card-text mb-0">{{ comment.comment }}</p>
+                                    <span>
+                                        <small>By {{ comment.user }}</small>
+                                        <small>| Comment created at {{ comment.created_at | timesince }} ago</small>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                        {% endfor %}
+                    {% else %}
+                        <p>No comments yet. Be the first to comment!</p>
+                    {% endif %}
+
+                    
+                    <br>
+                    {% if user.is_authenticated %}
+                    <h4>Leave a Comment</h4>
+                    <div class="form-group">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea name="comment" class="form-control" placeholder="Write Your Comment Here..."></textarea>
+                                <input type="submit" class="btn btn-primary mt-2" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p>Please <a href="{% url 'login' %}">login</a> to leave a comment.</p>
+                    {% endif %}
+
+
+                </section>
             </article>
         </div>
         <!-- Side widgets-->
